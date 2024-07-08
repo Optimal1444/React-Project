@@ -6,17 +6,16 @@ import NavBar from './component/NavBar'
 import { Route, Routes } from 'react-router-dom'
 import Register from './component/Register'
 import Login from './component/Login'
-import { useState } from 'react'
 function App() {
-  const [sign,setSign]=useState(0)
+  
   return (
     <>
-      <NavBar sign={sign} setSign={setSign} />
+      <NavBar  />
       <Routes>
       <Route path="/" element={<Home />} />
         <Route path="/home" element={<Home />} />
         <Route path="/register" element={<Register />} />
-        <Route path="/login" element={<Login sign={sign} setSign={setSign}/>} />
+        <Route path="/login" element={<Login/>} />
       </Routes>
       
     </>

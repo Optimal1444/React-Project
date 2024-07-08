@@ -4,6 +4,7 @@ import '../output.css'
 import { useNavigate } from 'react-router-dom'
 import { useEffect, useMemo, useState } from 'react'
 import Swal from 'sweetalert2'
+import { useDispatch, useSelector } from 'react-redux'
 const navigation = [
     { name: 'Home', href: '/home', current: true },
     { name: 'Sign up', href: '/register', current: false },
@@ -15,9 +16,10 @@ const navigation = [
   }
   
 
-export default function NavBar({sign,setSign}) {
+export default function NavBar() {
     const [signBtnActive,setSignBtnActive]=useState(1)
-
+    const state=useSelector(state=>state)
+    const dispatch=useDispatch()
   const handleClick=()=>{
     Swal.fire({
       title: "Are you sure?",
@@ -35,13 +37,13 @@ export default function NavBar({sign,setSign}) {
           icon: "success"
         });
         sessionStorage.removeItem('user')
-        setSign(sessionStorage.getItem('user'))
+        dispatch({type:''})
       }
     });
   }
   useEffect(()=>{
     setSignBtnActive(sessionStorage.getItem('user'))
-  },[sign])
+  },[state])
   
   return (
     <Disclosure as="nav" className="bg-gray-800">

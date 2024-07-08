@@ -3,10 +3,13 @@
 import { initializeApp } from "firebase/app";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import { useEffect, useRef, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import Swal from 'sweetalert2'
-function Login({sign,setSign})
+function Login()
 {
+  const state=useSelector(state=>state)
+  const dispatch=useDispatch()
     const firebaseConfig = {
     apiKey: "AIzaSyDmajIogTDdO6N-kOkmZgrjQpbmxoBETz0",
     authDomain: "books-2e9b3.firebaseapp.com",
@@ -24,6 +27,7 @@ function Login({sign,setSign})
       signInWithEmailAndPassword(auth,userRef.current.value , passRef.current.value).then((userCredential) => {
         const user = userCredential.user;
         sessionStorage.setItem('user',user.uid)
+        dispatch({type:'registerd'});
         Swal.fire({
           position: "top-middle",
           icon: "success",
@@ -31,7 +35,6 @@ function Login({sign,setSign})
           showConfirmButton: false,
           timer: 1500
         });
-        setSign(sessionStorage.getItem('user'));
         navigate('/home')
       })
       .catch((error) => {

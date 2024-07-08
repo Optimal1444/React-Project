@@ -3,12 +3,14 @@ import { useEffect, useRef, useState } from "react";
 import { Label, Listbox, ListboxButton, ListboxOption, ListboxOptions } from '@headlessui/react'
 import { GetBooksByAuthor, GetBooksBySubject, GetBooksByTitle } from "./Services";
 import Swal from 'sweetalert2'
+import { useSelector } from "react-redux";
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
 }
 
 
 function Home() {
+  const state=useSelector(state=>state)
     const inputRef=useRef()
     const [books,setBooks]=useState([])
     const [clickedBook,setClickedBook]=useState({})
@@ -171,7 +173,7 @@ function Home() {
 
 </div>
 {
-    (searchBtnClicked&&books.length==0)&&
+    (searchBtnClicked==1&&books.length==0)&&
       <h1 className="bg-red-50 px-4 py-1 text-3xl  text-red-700  ring-1 rounded  mx-auto w-80 text-center">Not found!</h1>
 
     
@@ -179,7 +181,7 @@ function Home() {
   }
 <section className="my-12">
 {
-books.length>0&&sessionStorage.getItem('user')&&
+books.length>0&&state==1&&
 <div className="flex flex-col items-center">
   <span className="text-sm text-gray-700 dark:text-gray-400">
       Showing <span className="font-semibold text-gray-900 dark:text-white">{(page-1)*21+1} </span>
@@ -204,7 +206,7 @@ books.length>0&&sessionStorage.getItem('user')&&
 </div>
 }
 </section>
-{showModal ? (
+{showModal==true ? (
         <>
           <div
             className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none"
