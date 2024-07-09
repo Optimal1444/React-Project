@@ -1,0 +1,5 @@
+git remote add origin <https://github.com/Optimal1444/React-Project.git>
+git add .
+git commit -m "using redux"
+it branch -M main
+git push origin main

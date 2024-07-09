@@ -10,7 +10,7 @@ function classNames(...classes) {
 
 
 function Home() {
-  const state=useSelector(state=>state)
+  const state=useSelector(state=>state.login.logedIn)
     const inputRef=useRef()
     const [books,setBooks]=useState([])
     const [clickedBook,setClickedBook]=useState({})

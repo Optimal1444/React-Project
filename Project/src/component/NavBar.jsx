@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom'
 import { useEffect, useMemo, useState } from 'react'
 import Swal from 'sweetalert2'
 import { useDispatch, useSelector } from 'react-redux'
+import { handleLoginOff } from './Redux/LoginSlice'
 const navigation = [
     { name: 'Home', href: '/home', current: true },
     { name: 'Sign up', href: '/register', current: false },
@@ -18,7 +19,7 @@ const navigation = [
 
 export default function NavBar() {
     const [signBtnActive,setSignBtnActive]=useState(1)
-    const state=useSelector(state=>state)
+    const state=useSelector(state=>state.login.logedIn)
     const dispatch=useDispatch()
   const handleClick=()=>{
     Swal.fire({
@@ -37,7 +38,7 @@ export default function NavBar() {
           icon: "success"
         });
         sessionStorage.removeItem('user')
-        dispatch({type:''})
+        dispatch(handleLoginOff())
       }
     });
   }

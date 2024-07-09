@@ -183,7 +183,7 @@ function Register()
       {
         sessionStorage.getItem('user')
         &&
-
+        dispatch(handleLoginOn())&&
         <div className="flex flex-col justify-center  items-center gap-10 my-10">
           <h1 className="bg-green-50 px-4 py-1 text-xl  text-green-700  ring-1 rounded ">You have already loged in</h1>
           <button className='bg-black p-2 rounded text-xl text-white px-6' onClick={()=>{navigate('/home')}}>Back to home</button>

@@ -12,6 +12,7 @@
   "dependencies": {
     "@headlessui/react": "^2.1.0",
     "@heroicons/react": "^2.1.4",
+    "@reduxjs/toolkit": "^2.2.6",
     "axios": "^1.7.2",
     "dom": "^0.0.3",
     "firebase": "^10.12.2",
