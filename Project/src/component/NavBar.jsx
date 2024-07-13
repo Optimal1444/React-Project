@@ -42,6 +42,7 @@ export default function NavBar() {
       }
     });
   }
+  console.log(sessionStorage.getItem('user'))
   useEffect(()=>{
     setSignBtnActive(sessionStorage.getItem('user'))
   },[state])

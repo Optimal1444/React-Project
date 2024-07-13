@@ -4,6 +4,7 @@ import { Label, Listbox, ListboxButton, ListboxOption, ListboxOptions } from '@h
 import { GetBooksByAuthor, GetBooksBySubject, GetBooksByTitle } from "./Services";
 import Swal from 'sweetalert2'
 import { useSelector } from "react-redux";
+import { ClipLoader } from "react-spinners";
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
 }
@@ -20,6 +21,9 @@ function Home() {
     const [radioBtn,setRadioBtn]=useState("title")
     const imagePath='https://covers.openlibrary.org/b/olid/'
     const [showModal, setShowModal] = useState(false);
+    const [loading,setLoading]=useState(false)
+    const foundRef=useRef()
+
     useEffect(()=>{
 
         if(sessionStorage.getItem('user') )
@@ -39,13 +43,19 @@ function Home() {
     const handleClick=()=>{
       if(sessionStorage.getItem('user') )
         {
-          setSearchBtnClicked(1)
+            setBooks([])
+            setSearchBtnClicked(1)
+            setLoading(true)
+           
           switch(radioBtn){
             case 'title':  GetBooksByTitle(inputRef.current.value,page).then((res)=>{setBooks(res.data.docs);setNumFound(res.data.numFound)}); break;
             case 'author':  GetBooksByAuthor(inputRef.current.value,page).then((res)=>{setBooks(res.data.docs);setNumFound(res.data.numFound)}); break;
             case 'subject':  GetBooksBySubject(inputRef.current.value,page).then((res)=>{setBooks(res.data.docs);setNumFound(res.data.numFound)}); break;
           
           }
+          setTimeout(() => {
+            setLoading(false)
+          }, 10000);
           setPage(1)
         }
         else{
@@ -174,11 +184,20 @@ function Home() {
 </div>
 {
     (searchBtnClicked==1&&books.length==0)&&
-      <h1 className="bg-red-50 px-4 py-1 text-3xl  text-red-700  ring-1 rounded  mx-auto w-80 text-center">Not found!</h1>
+    <div  className="mx-auto  text-center">
+      <ClipLoader
+        color={'#FB923C'}
+        loading={loading}
+        size={100}
 
+      />
+
+    </div>
     
+      
+}
+<h1 ref={foundRef} className='hidden'>Not found!</h1>
 
-  }
 <section className="my-12">
 {
 books.length>0&&state==1&&
